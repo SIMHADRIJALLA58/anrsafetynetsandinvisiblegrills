@@ -1,0 +1,317 @@
+/* ===========================
+   ABOUT SECTION
+=========================== */
+
+.anr-about-section{
+    position: relative;
+    padding: 100px 20px;
+    background: #ffffff;
+    overflow: hidden;
+    font-family: 'Lora', serif;
+}
+
+/* Top Right Circle */
+.anr-about-section::before{
+    content: "";
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    top: -120px;
+    right: -120px;
+    border-radius: 50%;
+    background: rgba(144, 135, 135, 0.1);
+}
+
+/* Bottom Left Glow Circle */
+.anr-about-section::after{
+    content: "";
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    bottom: -100px;
+    left: -100px;
+    border-radius: 80%;
+    background: rgb(170, 165, 165);
+    filter: blur(50px);
+}
+
+/* ===========================
+   CONTAINER
+=========================== */
+
+.anr-about-container{
+    position: relative;
+    z-index: 2;
+    max-width: 1250px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 70px;
+    align-items: center;
+}
+
+/* ===========================
+   IMAGE
+=========================== */
+
+.anr-about-image{
+    position: relative;
+}
+
+.anr-about-image img{
+    width: 100%;
+    display: block;
+    border-radius: 28px;
+
+    box-shadow:
+        0 25px 60px rgba(0,0,0,0.18);
+
+    transition: 0.5s ease;
+}
+
+.anr-about-image img:hover{
+    transform: translateY(-8px);
+
+    box-shadow:
+        0 35px 70px rgba(0,0,0,0.22);
+}
+
+/* ===========================
+   EXPERIENCE CARD
+=========================== */
+
+.anr-experience-card{
+    position: absolute;
+    bottom: 30px;
+    left: -25px;
+
+    background: rgb(81, 116, 157);
+
+    color: #000000;
+
+    padding: 22px 28px;
+
+    border-radius: 20px;
+
+    box-shadow:
+        0 15px 40px rgba(255, 255, 255, 0.35);
+
+    text-align: center;
+}
+
+.anr-experience-card span{
+    display: block;
+    font-size: 38px;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.anr-experience-card p{
+    margin-top: 6px;
+    font-size: 14px;
+}
+
+/* ===========================
+   CONTENT
+=========================== */
+
+.anr-subtitle{
+    display: inline-block;
+
+    color: #ff9900;
+
+    font-size: 15px;
+    font-weight: 700;
+
+    letter-spacing: 2px;
+    text-transform: uppercase;
+
+    margin-bottom: 15px;
+}
+
+.anr-about-content h2{
+    font-size: 42px;
+    font-weight: 700;
+
+    line-height: 1.3;
+
+    color: #000000;
+
+    margin-bottom: 25px;
+}
+
+.anr-about-content p{
+    color: rgba(24, 24, 24, 0.88);
+
+    font-size: 17px;
+
+    line-height: 1.9;
+
+    margin-bottom: 20px;
+}
+
+/* ===========================
+   FEATURES
+=========================== */
+
+.anr-feature-list{
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+
+    gap: 18px;
+
+    margin: 35px 0;
+}
+
+.anr-feature-item{
+    background: rgba(255,255,255,0.12);
+
+    backdrop-filter: blur(10px);
+
+    border: 1px solid rgba(255,255,255,0.15);
+
+    padding: 16px 18px;
+
+    border-radius: 14px;
+
+    color: #191818;
+
+    font-size: 15px;
+    font-weight: 600;
+
+    transition: .4s ease;
+}
+
+.anr-feature-item:hover{
+    transform: translateY(-5px);
+
+    background: #ffffff;
+
+    color: #2a3345;
+
+    box-shadow:
+        0 12px 30px rgba(0,0,0,0.12);
+}
+
+/* ===========================
+   BUTTONS
+=========================== */
+
+.anr-action-buttons{
+    display: flex;
+    gap: 18px;
+    flex-wrap: wrap;
+
+    margin-top: 15px;
+}
+
+.anr-call-btn,
+.anr-whatsapp-btn{
+    text-decoration: none;
+
+    padding: 16px 34px;
+
+    border-radius: 50px;
+
+    font-size: 15px;
+    font-weight: 700;
+
+    transition: .4s ease;
+}
+
+/* CALL */
+
+.anr-call-btn{
+    background: #ffffff;
+
+    color: #2a3345;
+
+    box-shadow:
+        0 10px 25px rgba(0,0,0,0.12);
+}
+
+.anr-call-btn:hover{
+    transform: translateY(-4px);
+
+    background: #f4f4f4;
+}
+
+/* WHATSAPP */
+
+.anr-whatsapp-btn{
+    background: #25D366;
+
+    color: #fff;
+
+    box-shadow:
+        0 10px 25px rgba(37,211,102,.35);
+}
+
+.anr-whatsapp-btn:hover{
+    transform: translateY(-4px);
+
+    background: #1ebc5a;
+}
+
+/* ===========================
+   RESPONSIVE
+=========================== */
+
+@media (max-width: 991px){
+
+    .anr-about-container{
+        grid-template-columns: 1fr;
+        gap: 50px;
+    }
+
+    .anr-about-content h2{
+        font-size: 34px;
+    }
+
+    .anr-experience-card{
+        left: 20px;
+        bottom: 20px;
+    }
+}
+
+@media (max-width: 576px){
+
+    .anr-about-section{
+        padding: 70px 15px;
+    }
+
+    .anr-about-content h2{
+        font-size: 28px;
+    }
+
+    .anr-about-content p{
+        font-size: 16px;
+    }
+
+    .anr-feature-list{
+        grid-template-columns: 1fr;
+    }
+
+    .anr-action-buttons{
+        flex-direction: column;
+    }
+
+    .anr-call-btn,
+    .anr-whatsapp-btn{
+        text-align: center;
+    }
+
+    .anr-about-section::before{
+        width: 240px;
+        height: 240px;
+        top: -80px;
+        right: -80px;
+    }
+
+    .anr-about-section::after{
+        width: 150px;
+        height: 150px;
+        bottom: -70px;
+        left: -70px;
+    }
+}
