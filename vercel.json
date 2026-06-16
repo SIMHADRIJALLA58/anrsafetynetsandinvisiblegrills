@@ -1,0 +1,15 @@
+{
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "anrsafetynetsandinvisiblegrills.vercel.app"
+        }
+      ],
+      "destination": "https://anrsafetynetsandinvisiblegrills.com/$1",
+      "permanent": true
+    }
+  ]
+}
