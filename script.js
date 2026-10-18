@@ -1,195 +1,268 @@
-/* ==========================
-   HERO SLIDER
-========================== */
+document.addEventListener("DOMContentLoaded", function () {
 
-const slides = document.querySelectorAll(".slide");
-const dots = document.querySelectorAll(".dot");
+    /* ============================================
+       PREMIUM BACKGROUND HERO SLIDER
+       4 slides
+       3 seconds each
+    ============================================ */
 
-let currentSlide = 0;
-let slideInterval;
+    const slides = document.querySelectorAll(".bg-hero-slide");
 
-/* ==========================
-   SHOW SLIDE FUNCTION
-========================== */
+    const progressItems =
+        document.querySelectorAll(".bg-progress-item");
 
-function showSlide(index) {
+    const nextButton =
+        document.querySelector(".bg-next");
 
-    // Remove active classes
-    slides.forEach((slide) => {
-        slide.classList.remove("active");
-    });
-
-    dots.forEach((dot) => {
-        dot.classList.remove("active");
-    });
-
-    // Add active classes
-    slides[index].classList.add("active");
-    dots[index].classList.add("active");
-
-    currentSlide = index;
-}
-
-/* ==========================
-   NEXT SLIDE
-========================== */
-
-function nextSlide() {
-
-    currentSlide++;
-
-    if (currentSlide >= slides.length) {
-        currentSlide = 0;
-    }
-
-    showSlide(currentSlide);
-}
-
-/* ==========================
-   AUTO PLAY
-========================== */
-
-function startSlider() {
-
-    slideInterval = setInterval(() => {
-        nextSlide();
-    }, 5000); // Change every 5 seconds
-}
-
-/* ==========================
-   RESET AUTO PLAY
-========================== */
-
-function resetSlider() {
-
-    clearInterval(slideInterval);
-    startSlider();
-}
-
-/* ==========================
-   DOT NAVIGATION
-========================== */
-
-dots.forEach((dot, index) => {
-
-    dot.addEventListener("click", () => {
-
-        showSlide(index);
-        resetSlider();
-
-    });
-
-});
+    const prevButton =
+        document.querySelector(".bg-prev");
 
 
-/* ==========================
-   TOUCH SWIPE SUPPORT
-========================== */
+    let currentSlide = 0;
 
-let touchStartX = 0;
-let touchEndX = 0;
+    const slideTime = 3000;
 
-const hero = document.querySelector(".hero");
-
-hero.addEventListener("touchstart", (e) => {
-
-    touchStartX = e.changedTouches[0].screenX;
-
-});
-
-hero.addEventListener("touchend", (e) => {
-
-    touchEndX = e.changedTouches[0].screenX;
-
-    handleSwipe();
-
-});
+    let sliderTimer;
 
 
-function handleSwipe() {
+    /* ============================================
+       SHOW SLIDE
+    ============================================ */
 
-    const swipeDistance = touchStartX - touchEndX;
+    function showSlide(index) {
 
-    // Swipe Left → Next
-    if (swipeDistance > 50) {
+        /* Reset all slides */
 
-        nextSlide();
-        resetSlider();
+        slides.forEach(function (slide) {
+
+            slide.classList.remove("active");
+
+        });
+
+
+        /* Reset progress */
+
+        progressItems.forEach(function (item) {
+
+            item.classList.remove("active");
+
+            const progress =
+                item.querySelector("i");
+
+            if (progress) {
+
+                progress.style.animation = "none";
+
+                progress.offsetHeight;
+
+                progress.style.animation = "";
+
+            }
+
+        });
+
+
+        /* Activate selected slide */
+
+        slides[index].classList.add("active");
+
+        progressItems[index].classList.add("active");
+
+
+        currentSlide = index;
 
     }
 
-    // Swipe Right → Previous
-    if (swipeDistance < -50) {
+
+    /* ============================================
+       NEXT
+    ============================================ */
+
+    function nextSlide() {
+
+        currentSlide++;
+
+        if (currentSlide >= slides.length) {
+
+            currentSlide = 0;
+
+        }
+
+        showSlide(currentSlide);
+
+        restartSlider();
+
+    }
+
+
+    /* ============================================
+       PREVIOUS
+    ============================================ */
+
+    function previousSlide() {
 
         currentSlide--;
 
         if (currentSlide < 0) {
-            currentSlide = slides.length - 1;
+
+            currentSlide =
+                slides.length - 1;
+
         }
 
         showSlide(currentSlide);
-        resetSlider();
+
+        restartSlider();
+
     }
-}
 
 
-/* ==========================
-   PAUSE ON HOVER (DESKTOP)
-========================== */
+    /* ============================================
+       START AUTO SLIDER
+    ============================================ */
 
-hero.addEventListener("mouseenter", () => {
+    function startSlider() {
 
-    clearInterval(slideInterval);
+        sliderTimer =
+            setInterval(function () {
 
-});
+                currentSlide++;
 
-hero.addEventListener("mouseleave", () => {
+                if (currentSlide >= slides.length) {
+
+                    currentSlide = 0;
+
+                }
+
+                showSlide(currentSlide);
+
+            }, slideTime);
+
+    }
+
+
+    /* ============================================
+       RESTART
+    ============================================ */
+
+    function restartSlider() {
+
+        clearInterval(sliderTimer);
+
+        startSlider();
+
+    }
+
+
+    /* ============================================
+       BUTTONS
+    ============================================ */
+
+    nextButton.addEventListener(
+        "click",
+        nextSlide
+    );
+
+
+    prevButton.addEventListener(
+        "click",
+        previousSlide
+    );
+
+
+    /* ============================================
+       START
+    ============================================ */
+
+    showSlide(0);
 
     startSlider();
 
-});
+
+    /* ============================================
+       PAUSE WHEN MOUSE IS OVER HERO
+    ============================================ */
+
+    const hero =
+        document.querySelector(".premium-bg-hero");
 
 
-/* ==========================
-   INITIALIZE
-========================== */
+    hero.addEventListener(
+        "mouseenter",
+        function () {
 
-showSlide(currentSlide);
-startSlider();
+            clearInterval(sliderTimer);
 
-
-
-
+        }
+    );
 
 
- AOS.init({
-        duration: 1000,
-        once: true
-    });
+    hero.addEventListener(
+        "mouseleave",
+        function () {
+
+            startSlider();
+
+        }
+    );
 
 
-  document.querySelectorAll(".anr-pro-faq-question").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      const item = btn.parentElement;
+    /* ============================================
+       MOBILE SWIPE
+    ============================================ */
 
-      document.querySelectorAll(".anr-pro-faq-item").forEach((el) => {
-        if (el !== item) el.classList.remove("active");
-      });
+    let touchStartX = 0;
 
-      item.classList.toggle("active");
-    });
-  });
+    let touchEndX = 0;
 
 
+    hero.addEventListener(
+        "touchstart",
+        function (event) {
+
+            touchStartX =
+                event.changedTouches[0].screenX;
+
+        },
+        {
+            passive: true
+        }
+    );
 
 
+    hero.addEventListener(
+        "touchend",
+        function (event) {
 
-const navbar = document.querySelector('.main-navbar');
+            touchEndX =
+                event.changedTouches[0].screenX;
 
-window.addEventListener('scroll', () => {
-    if (window.scrollY > 20) {
-        navbar.classList.add('scrolled');
-    } else {
-        navbar.classList.remove('scrolled');
-    }
+
+            const difference =
+                touchStartX - touchEndX;
+
+
+            /* Swipe left */
+
+            if (difference > 50) {
+
+                nextSlide();
+
+            }
+
+
+            /* Swipe right */
+
+            else if (difference < -50) {
+
+                previousSlide();
+
+            }
+
+        },
+        {
+            passive: true
+        }
+    );
+
 });
