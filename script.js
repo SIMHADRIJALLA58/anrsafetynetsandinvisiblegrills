@@ -275,3 +275,61 @@ AOS.init({
     offset: 100,
     easing: 'ease-in-out'
 });
+
+
+
+
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const slides = document.querySelectorAll("#id1 .slide");
+    const dots = document.querySelectorAll("#id1 .dot");
+
+    let currentSlide = 0;
+    let slideInterval;
+
+    // Display selected slide
+    function showSlide(index) {
+
+        slides.forEach(slide => {
+            slide.classList.remove("active");
+        });
+
+        dots.forEach(dot => {
+            dot.classList.remove("active");
+        });
+
+        currentSlide = index;
+
+        slides[currentSlide].classList.add("active");
+        dots[currentSlide].classList.add("active");
+    }
+
+    // Move to next slide
+    function nextSlide() {
+        currentSlide = (currentSlide + 1) % slides.length;
+        showSlide(currentSlide);
+    }
+
+    // Automatically change slide every 4 seconds
+    function startSlider() {
+        slideInterval = setInterval(nextSlide, 4000);
+    }
+
+    // Manual navigation using dots
+    dots.forEach((dot, index) => {
+        dot.addEventListener("click", function () {
+
+            clearInterval(slideInterval);
+
+            showSlide(index);
+
+            startSlider();
+        });
+    });
+
+    // Initialize slider
+    showSlide(0);
+    startSlider();
+
+});
